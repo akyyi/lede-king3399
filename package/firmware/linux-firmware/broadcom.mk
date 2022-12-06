@@ -117,7 +117,7 @@ define Package/bnx2x-firmware/install
 		$(PKG_BUILD_DIR)/bnx2x/* \
 		$(1)/lib/firmware/bnx2x/
 endef
-$(eval $(call BuildPackage,station-p2-firmware))
+$(eval $(call BuildPackage,bnx2x-firmware))
 
 Package/rp-king3399-firmware = $(call Package/firmware-default,Broadcom FullMac SDIO firmware)
 define Package/rp-king3399-firmware/install
