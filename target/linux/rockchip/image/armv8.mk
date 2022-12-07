@@ -99,7 +99,7 @@ define Device/friendlyarm_nanopi-r5s
   IMAGE/sysupgrade.img.gz := boot-common | boot-script nanopi-r5s | pine64-img | gzip | append-metadata
   DEVICE_PACKAGES := kmod-r8125 kmod-nvme kmod-scsi-core
 endef
-TARGET_DEVICES += friendlyarm_nanopi-r5s
+TARGET_DEVICES += firefly_station-p2
 
 define Device/pine64_rockpro64
   DEVICE_VENDOR := Pine64
