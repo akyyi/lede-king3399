@@ -62,7 +62,8 @@ define Build/pine64-bin
 	# Copy the idbloader, uboot and trust image to the image at sector 0x40, 0x4000 and 0x6000
 	dd if="$(STAGING_DIR_IMAGE)"/$(SOC)-idbloader.bin of="$@" seek=64 conv=notrunc
 	dd if="$(STAGING_DIR_IMAGE)"/$(UBOOT_DEVICE_NAME)-uboot.img of="$@" seek=16384 conv=notrunc
-	dd if="$(STAGING_DIR_IMAGE)"/$(SOC)-trust.bin of="$@" seek=24576 conv=notrunc
+	# dd if="$(STAGING_DIR_IMAGE)"/$(SOC)-trust.bin of="$@" seek=24576 conv=notrunc
+	dd if="$(STAGING_DIR_IMAGE)"/rk3399_bl31_v1.35.elf of="$@" seek=24576 conv=notrunc
 endef
 
 ### Devices ###
@@ -72,10 +73,6 @@ define Device/Default
   IMAGES := sysupgrade.img.gz
   DEVICE_DTS = rockchip/$$(SOC)-$(lastword $(subst _, ,$(1)))
 endef
-
-ifdef CONFIG_LINUX_6_0
-  DTS_CPPFLAGS += -DDTS_NO_LEGACY
-endif
 
 include $(SUBTARGET).mk
 
