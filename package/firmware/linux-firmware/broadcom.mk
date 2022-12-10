@@ -88,6 +88,13 @@ define Package/brcmfmac-firmware-usb/install
 	$(INSTALL_DATA) \
 		$(PKG_BUILD_DIR)/brcm/brcmfmac43143.bin \
 		$(1)/lib/firmware/brcm/
+	$(INSTALL_DIR) $(1)/lib/firmware/brcm
+	$(INSTALL_DATA) ./brcm_firmware/ap6356s/BCM4356A2.hcd $(1)/lib/firmware/brcm/BCM4356A2.hcd
+	$(INSTALL_DATA) ./brcm_firmware/ap6356s/brcmfmac4356-sdio.clm_blob $(1)/lib/firmware/brcm/brcmfmac4356-sdio.clm_blob
+	$(INSTALL_DATA) ./brcm_firmware/ap6356s/brcmfmac4356-sdio.bin $(1)/lib/firmware/brcm/brcmfmac4356-sdio.bin
+	$(INSTALL_DATA) ./brcm_firmware/ap6356s/brcmfmac4356-sdio.bin $(1)/lib/firmware/brcm/brcmfmac4356-sdio.rongpin,king3399.bin
+	$(INSTALL_DATA) ./brcm_firmware/ap6356s/brcmfmac4356-sdio.txt $(1)/lib/firmware/brcm/brcmfmac4356-sdio.txt
+	$(INSTALL_DATA) ./brcm_firmware/ap6356s/brcmfmac4356-sdio.txt $(1)/lib/firmware/brcm/brcmfmac4356-sdio.rongpin,king3399.txt
 endef
 $(eval $(call BuildPackage,brcmfmac-firmware-usb))
 
