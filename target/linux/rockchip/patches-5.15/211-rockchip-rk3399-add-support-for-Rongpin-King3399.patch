@@ -8,3 +8,15 @@
  dtb-$(CONFIG_ARCH_ROCKCHIP) += rk3568-evb1-v10.dtb
  dtb-$(CONFIG_ARCH_ROCKCHIP) += rk3568-rock-pi-e25.dtb
  dtb-$(CONFIG_ARCH_ROCKCHIP) += rk3568-mrkaio-m68s.dtb
+diff --git a/drivers/usb/serial/option.c b/drivers/usb/serial/option.c
+index 1b241f937..e1ded14fd 100644
+--- a/drivers/usb/serial/option.c
++++ b/drivers/usb/serial/option.c
+@@ -2177,6 +2189,7 @@ static const struct usb_device_id option_ids[] = {
+ 	  .driver_info = RSVD(6) },
+ 	{ USB_DEVICE_INTERFACE_CLASS(0x2cb7, 0x0106, 0xff) },			/* Fibocom MA510 (ECM mode w/ diag intf.) */
+ 	{ USB_DEVICE_INTERFACE_CLASS(0x2cb7, 0x010a, 0xff) },			/* Fibocom MA510 (ECM mode) */
++	{ USB_DEVICE(0x2cb7, 0x0A05) },			/* Fibocom FM650 (NCM mode) */
+ 	{ USB_DEVICE_AND_INTERFACE_INFO(0x2cb7, 0x010b, 0xff, 0xff, 0x30) },	/* Fibocom FG150 Diag */
+ 	{ USB_DEVICE_AND_INTERFACE_INFO(0x2cb7, 0x010b, 0xff, 0, 0) },		/* Fibocom FG150 AT */
+ 	{ USB_DEVICE_INTERFACE_CLASS(0x2cb7, 0x0111, 0xff) },			/* Fibocom FM160 (MBIM mode) */
