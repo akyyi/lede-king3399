@@ -9,7 +9,8 @@ index a7e0d9f6..d0263cf5 100644
 -	rk3399pro-rock-pi-n10.dtb
 +	rk3399pro-rock-pi-n10.dtb \
 +	rk3399-king3399.dtb
- 
+  
+ dtb-$(CONFIG_ROCKCHIP_RK3568) += \
 --- /dev/null
 +++ b/configs/rongpin-king3399-rk3399_defconfig
 @@ -0,0 +1,88 @@
