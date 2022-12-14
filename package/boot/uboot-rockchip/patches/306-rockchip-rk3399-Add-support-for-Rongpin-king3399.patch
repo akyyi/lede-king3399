@@ -2,7 +2,7 @@ diff --git a/arch/arm/dts/Makefile b/arch/arm/dts/Makefile
 index a7e0d9f6..d0263cf5 100644
 --- a/arch/arm/dts/Makefile
 +++ b/arch/arm/dts/Makefile
-@@ -161,6 +161,7 @@ dtb-$(CONFIG_ROCKCHIP_RK3399) += \
+@@ -161,7 +161,8 @@ dtb-$(CONFIG_ROCKCHIP_RK3399) += \
  	rk3399-rock-pi-4c.dtb \
  	rk3399-rock960.dtb \
  	rk3399-rockpro64.dtb \
@@ -11,6 +11,7 @@ index a7e0d9f6..d0263cf5 100644
 +	rk3399-king3399.dtb
   
  dtb-$(CONFIG_ROCKCHIP_RK3568) += \
+ 	rk3568-bpi-r2-pro.dtb \
 --- /dev/null
 +++ b/configs/rongpin-king3399-rk3399_defconfig
 @@ -0,0 +1,88 @@
