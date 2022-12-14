@@ -1034,7 +1034,7 @@
 +
 +&sdio0 {
 +	bus-width = <4>;
-+	cap-sd-highspeed;
++	cap-mmc-highspeed
 +	cap-sdio-irq;
 +	clock-frequency = <150000000>;
 +	disable-wp;
