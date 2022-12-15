@@ -956,11 +956,11 @@
 
 	brcmf: wifi@1 {
 		reg = <1>;
-		compatible = "brcm,bcm43455-fmac";
+		compatible = "wlan-platdata";
 		interrupt-parent = <&gpio0>;
 		interrupts = <RK_PA3 GPIO_ACTIVE_HIGH>; // bsp verify
 		interrupt-names = "host-wake";
-		pinctrl-names = "default";
+		pinctrl-names = "ap6356s";
 		pinctrl-0 = <&wifi_host_wake_l>;
 	};
 };
@@ -975,7 +975,7 @@
 	max-frequency = <150000000>;
 	pinctrl-names = "default";
 	pinctrl-0 = <&sdmmc_clk &sdmmc_cmd &sdmmc_cd &sdmmc_bus4>;
-	vmmc-supply = <&cc3v0_sd>;
+	vmmc-supply = <&vcc3v0_sd>;
 	vqmmc-supply = <&vcc_sdio>;
 	status = "okay";
 };
