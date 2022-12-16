@@ -92,7 +92,7 @@
 
 --- /dev/null
 +++ b/arch/arm/dts/rk3399-king3399.dts
-@@ -0,0 +1,1127 @@
+@@ -0,0 +1,1126 @@
 +// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
 +/*
 + * Copyright (c) 2017 Fuzhou Rockchip Electronics Co., Ltd.
@@ -1035,7 +1035,6 @@
 +&sdio0 {
 +	bus-width = <4>;
 +	cap-mmc-highspeed;
-+	cap-sdio-irq;
 +	clock-frequency = <150000000>;
 +	disable-wp;
 +	keep-power-in-suspend;
