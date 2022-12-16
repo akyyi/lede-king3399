@@ -141,6 +141,14 @@
 		 */
 		reset-gpios = <&gpio0 RK_PB2 GPIO_ACTIVE_LOW>;
 	};
+	wireless_wlan: wireless-wlan {
+		compatible = "wlan-platdata";
+		rockchip,grf = <&grf>;
+		pinctrl-names = "default";
+		pinctrl-0 = <&wifi_host_wake_irq>;
+		WIFI,host_wake_irq = <&gpio3 RK_PD4 GPIO_ACTIVE_HIGH>;
+ 		status = "disabled";
+	};
 
 	/* switched by pmic_sleep */
 	vcc1v8_s3: vcca1v8_s3: vcc1v8-s3 {
@@ -1122,5 +1130,9 @@
 };
 
 &vopl_mmu {
+	status = "okay";
+};
+&wireless_wlan {
+	wifi_chip_type = "ap6356s"; 
 	status = "okay";
 };
