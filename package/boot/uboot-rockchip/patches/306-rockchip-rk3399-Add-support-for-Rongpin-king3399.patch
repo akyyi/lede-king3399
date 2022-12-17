@@ -1070,9 +1070,9 @@
 +	bus-width = <4>;
 +	cap-sd-highspeed;
 +	cd-gpios = <&gpio0 RK_PA7 GPIO_ACTIVE_LOW>; // checked
-+	clock-frequency = <150000000>;
++	clock-frequency = <148000000>;
 +	disable-wp;
-+	max-frequency = <150000000>;
++	max-frequency = <148000000>;
 +	pinctrl-names = "default";
 +	pinctrl-0 = <&sdmmc_clk &sdmmc_cmd &sdmmc_cd &sdmmc_bus4>;
 +	vmmc-supply = <&vcc3v0_sd>;
