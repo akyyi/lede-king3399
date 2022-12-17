@@ -961,11 +961,11 @@
 
 	brcmf: wifi@1 {
 		reg = <1>;
-		compatible = "wlan-platdata";
+		compatible = "brcm,bcm43455-fmac";
 		interrupt-parent = <&gpio0>;
 		interrupts = <RK_PA3 GPIO_ACTIVE_HIGH>; // bsp verify
 		interrupt-names = "host-wake";
-		pinctrl-names = "ap6356s";
+		pinctrl-names = "default";
 		pinctrl-0 = <&wifi_host_wake_l>;
 	};
 };
