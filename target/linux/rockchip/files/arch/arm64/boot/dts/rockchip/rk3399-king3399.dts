@@ -945,7 +945,7 @@
 
 &sdio0 {
 	bus-width = <4>;
-	cap-mmc-highspeed;
+	cap-sd-highspeed;
 	clock-frequency = <150000000>;
 	disable-wp;
 	keep-power-in-suspend;
