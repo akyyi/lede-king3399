@@ -144,8 +144,6 @@
 	wireless_wlan: wireless-wlan {
 		compatible = "wlan-platdata";
 		rockchip,grf = <&grf>;
-		pinctrl-names = "default";
-		pinctrl-0 = <&wifi_host_wake_irq>;
 		WIFI,host_wake_irq = <&gpio3 RK_PA3 GPIO_ACTIVE_LOW>;
  		status = "disabled";
 	};
