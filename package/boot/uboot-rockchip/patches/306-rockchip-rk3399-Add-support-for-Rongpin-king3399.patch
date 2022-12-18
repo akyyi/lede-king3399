@@ -93,7 +93,7 @@
 
 --- /dev/null
 +++ b/arch/arm/dts/rk3399-king3399.dts
-@@ -0,0 +1,1135 @@
+@@ -0,0 +1,1138 @@
 +// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
 +/*
 + * Copyright (c) 2017 Fuzhou Rockchip Electronics Co., Ltd.
@@ -240,7 +240,9 @@
 +	wireless_wlan: wireless-wlan {
 +		compatible = "wlan-platdata";
 +		rockchip,grf = <&grf>;
-+		WIFI,host_wake_irq = <&gpio3 RK_PA3 GPIO_ACTIVE_LOW>;
++		pinctrl-names = "default";
++		pinctrl-0 = <&wifi_host_wake_l>;
++		WIFI,host_wake_l = <&gpio3 RK_PA3 GPIO_ACTIVE_LOW>;
 +		status = "disabled";
 +};
 +
@@ -1068,6 +1070,7 @@
 +
 +&sdmmc {
 +	bus-width = <4>;
++	supports-sdio;
 +	cap-sd-highspeed;
 +	cd-gpios = <&gpio0 RK_PA7 GPIO_ACTIVE_LOW>; // checked
 +	clock-frequency = <148000000>;
