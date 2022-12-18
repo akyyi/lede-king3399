@@ -950,6 +950,7 @@
 	supports-sdio;
 	cap-mmc-highspeed;
 	cap-sdio-irq;
+	clock-frequency = <50000000>;
 	disable-wp;
 	keep-power-in-suspend;
 	max-frequency = <170000000>;
