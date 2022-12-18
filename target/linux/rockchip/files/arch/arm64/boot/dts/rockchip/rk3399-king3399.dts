@@ -948,10 +948,11 @@
 &sdio0 {
 	bus-width = <4>;
 	cap-sd-highspeed;
-	clock-frequency = <148000000>;
+	cap-sdio-irq;
+	clock-frequency = <148500000>;
 	disable-wp;
 	keep-power-in-suspend;
-	max-frequency = <148000000>;
+	max-frequency = <148500000>;
 	mmc-pwrseq = <&sdio_pwrseq>;
 	non-removable;
 	pinctrl-names = "default";
