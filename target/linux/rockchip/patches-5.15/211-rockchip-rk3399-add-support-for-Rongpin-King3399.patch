@@ -33,3 +33,16 @@ index 1b241f937..e1ded14fd 100644
 +obj-$(CONFIG_WL_ROCKCHIP)	+= rockchip_wlan/
  
  obj-$(CONFIG_VIRT_WIFI)	+= virt_wifi.o
+
+diff --git a/kernel/drivers/net/wireless/Kconfig b/kernel/drivers/net/wireless/Kconfig
+index 8f577c6d8..7add2002f 100644
+--- a/kernel/drivers/net/wireless/Kconfig
++++ b/kernel/drivers/net/wireless/Kconfig
+@@ -31,6 +31,7 @@ source "drivers/net/wireless/microchip/Kconfig"
+ source "drivers/net/wireless/ralink/Kconfig"
+ source "drivers/net/wireless/realtek/Kconfig"
+ source "drivers/net/wireless/rsi/Kconfig"
++source "drivers/net/wireless/rockchip_wlan/Kconfig"
+ source "drivers/net/wireless/st/Kconfig"
+ source "drivers/net/wireless/ti/Kconfig"
+ source "drivers/net/wireless/zydas/Kconfig"
