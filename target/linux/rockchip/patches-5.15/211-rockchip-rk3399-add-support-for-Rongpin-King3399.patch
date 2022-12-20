@@ -38,7 +38,7 @@ diff --git a/drivers/net/wireless/Kconfig b/drivers/net/wireless/Kconfig
 index 8f577c6d8..7add2002f 100644
 --- a/drivers/net/wireless/Kconfig
 +++ b/drivers/net/wireless/Kconfig
-@@ -31,5 +31,6 @@ source "drivers/net/wireless/ralink/Kconfig"
+@@ -32,5 +32,6 @@ source "drivers/net/wireless/ralink/Kconfig"
  source "drivers/net/wireless/realtek/Kconfig"
  source "drivers/net/wireless/rsi/Kconfig"
 +source "drivers/net/wireless/rockchip_wlan/Kconfig"
