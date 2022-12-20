@@ -4,7 +4,7 @@ config AP6XXX
 	#depends on MMC && WLAN_80211
     select CFG80211
     select MAC80211
-	---help---
+	help
 	  This module adds support for wireless adapters based on
 	  Broadcom ap6xxx chipset.
 
