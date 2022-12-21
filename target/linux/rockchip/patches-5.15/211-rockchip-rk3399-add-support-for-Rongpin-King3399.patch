@@ -78,3 +78,17 @@ index fcebca1e5..ffb21b229 100644
  struct device {
  	struct kobject kobj;
  	struct device		*parent;
+
+diff --git a/net/rfkill/Makefile b/net/rfkill/Makefile
+index ffbae7335..aa59731d8 100644
+--- a/net/rfkill/Makefile
++++ b/net/rfkill/Makefile
+@@ -6,4 +6,5 @@
+ rfkill-y			+= core.o
+ rfkill-$(CONFIG_RFKILL_INPUT)	+= input.o
+ obj-$(CONFIG_RFKILL_FULL)	+= rfkill.o
+-obj-$(CONFIG_RFKILL_GPIO)	+= rfkill-gpio.o
+\ No newline at end of file
++obj-$(CONFIG_RFKILL_GPIO)	+= rfkill-gpio.o
++obj-y				+= rfkill-wlan.o
+\ No newline at end of file
