@@ -87,8 +87,5 @@ index ffbae7335..aa59731d8 100644
  rfkill-y			+= core.o
  rfkill-$(CONFIG_RFKILL_INPUT)	+= input.o
  obj-$(CONFIG_RFKILL_FULL)	+= rfkill.o
--obj-$(CONFIG_RFKILL_GPIO)	+= rfkill-gpio.o
-\ No newline at end of file
-+obj-$(CONFIG_RFKILL_GPIO)	+= rfkill-gpio.o
 +obj-y				+= rfkill-wlan.o
-\ No newline at end of file
+ obj-$(CONFIG_RFKILL_GPIO)	+= rfkill-gpio.o
