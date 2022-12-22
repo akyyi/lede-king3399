@@ -89,3 +89,18 @@ index ffbae7335..aa59731d8 100644
  obj-$(CONFIG_RFKILL_FULL)	+= rfkill.o
 +obj-y				+= rfkill-wlan.o
  obj-$(CONFIG_RFKILL_GPIO)	+= rfkill-gpio.o
+
+diff --git a/kernel/power/wakelock.c b/kernel/power/wakelock.c
+index 05fc144a4..f7be651a2 100644
+--- a/kernel/power/wakelock.c
++++ b/kernel/power/wakelock.c
+@@ -192,7 +192,8 @@ static struct wakelock *wakelock_lookup_add(const char *name, size_t len,
+ 		return ERR_PTR(-ENOMEM);
+ 	}
+ 	wl->ws->last_time = ktime_get();
+-
++	wl->ws.name = wl->name;
++	wakeup_source_add(&wl->ws);
+ 	rb_link_node(&wl->node, parent, node);
+ 	rb_insert_color(&wl->node, &wakelocks_tree);
+ 	wakelocks_lru_add(wl);
