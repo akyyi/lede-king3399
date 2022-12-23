@@ -606,6 +606,7 @@ static int mmc_validate_host_caps(struct mmc_host *host)
  *	prepared to start servicing requests before this function
  *	completes.
  */
+struct mmc_host *primary_sdio_host;
 int mmc_add_host(struct mmc_host *host)
 {
 	int err;
@@ -625,6 +626,12 @@ int mmc_add_host(struct mmc_host *host)
 #endif
 
 	mmc_start_host(host);
+	if (!(host->pm_flags & MMC_PM_IGNORE_PM_NOTIFY))
+		register_pm_notifier(&host->pm_notify);
+
+	if (host->restrict_caps & RESTRICT_CARD_TYPE_SDIO)
+		primary_sdio_host = host;
+
 	return 0;
 }
 
