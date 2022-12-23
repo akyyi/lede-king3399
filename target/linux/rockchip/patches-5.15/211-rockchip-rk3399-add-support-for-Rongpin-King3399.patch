@@ -104,3 +104,27 @@ index 05fc144a4..f7be651a2 100644
  	rb_link_node(&wl->node, parent, node);
  	rb_insert_color(&wl->node, &wakelocks_tree);
  	wakelocks_lru_add(wl);
+
+diff --git a/include/linux/pm_wake.h b/include/linux/pm_wake.h
+index 3449e3c56..48b6b74b9 100644
+--- a/include/linux/pm_wake.h
++++ b/include/linux/pm_wake.h
+@@ -201,7 +201,17 @@ static inline void pm_wakeup_dev_event(struct device *dev, unsigned int msec,
+ 				       bool hard) {}
+ 
+ #endif /* !CONFIG_PM_SLEEP */
+-
++static inline void wakeup_source_init(struct wakeup_source *ws,
++				      const char *name)
++{
++	wakeup_source_prepare(ws, name);
++	wakeup_source_add(ws);
++}
++static inline void wakeup_source_trash(struct wakeup_source *ws)
++{
++	wakeup_source_remove(ws);
++	wakeup_source_drop(ws);
++}
+ static inline void __pm_wakeup_event(struct wakeup_source *ws, unsigned int msec)
+ {
+ 	return pm_wakeup_ws_event(ws, msec, false);
