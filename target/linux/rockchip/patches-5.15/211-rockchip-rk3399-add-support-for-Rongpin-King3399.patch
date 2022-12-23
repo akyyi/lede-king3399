@@ -157,10 +157,29 @@ index 3449e3c56..1343dde0e 100644
  	return pm_wakeup_ws_event(ws, msec, false);
 
 diff --git a/drivers/mmc/core/host.c b/drivers/mmc/core/host.c
-index 7ea155075..7197cf85e 100644
+index 7ea155075..6acd46cc4 100644
 --- a/drivers/mmc/core/host.c
 +++ b/drivers/mmc/core/host.c
-@@ -630,6 +630,48 @@ int mmc_add_host(struct mmc_host *host)
+@@ -606,6 +606,7 @@ static int mmc_validate_host_caps(struct mmc_host *host)
+  *	prepared to start servicing requests before this function
+  *	completes.
+  */
++struct mmc_host *primary_sdio_host;
+ int mmc_add_host(struct mmc_host *host)
+ {
+ 	int err;
+@@ -625,11 +626,59 @@ int mmc_add_host(struct mmc_host *host)
+ #endif
+ 
+ 	mmc_start_host(host);
++	if (!(host->pm_flags & MMC_PM_IGNORE_PM_NOTIFY))
++		register_pm_notifier(&host->pm_notify);
++
++	if (host->restrict_caps & RESTRICT_CARD_TYPE_SDIO)
++		primary_sdio_host = host;
++
+ 	return 0;
+ }
  
  EXPORT_SYMBOL(mmc_add_host);
  
@@ -209,3 +228,24 @@ index 7ea155075..7197cf85e 100644
  /**
   *	mmc_remove_host - remove host hardware
   *	@host: mmc host
+
+diff --git a/include/linux/mmc/host.h b/include/linux/mmc/host.h
+index 0842f9b40..7e5e365db 100644
+--- a/include/linux/mmc/host.h
++++ b/include/linux/mmc/host.h
+@@ -155,6 +155,7 @@ struct mmc_host_ops {
+ 
+ 	/* Check if the card is pulling dat[0] low */
+ 	int	(*card_busy)(struct mmc_host *host);
++	int     (*set_sdio_status)(struct mmc_host *host, int val);
+ 
+ 	/* The tuning command opcode value is different for SD and eMMC cards */
+ 	int	(*execute_tuning)(struct mmc_host *host, u32 opcode);
+@@ -337,6 +338,7 @@ struct mmc_host {
+ #define MMC_CAP_AGGRESSIVE_PM	(1 << 7)	/* Suspend (e)MMC/SD at idle  */
+ #define MMC_CAP_NONREMOVABLE	(1 << 8)	/* Nonremovable e.g. eMMC */
+ #define MMC_CAP_WAIT_WHILE_BUSY	(1 << 9)	/* Waits while card is busy */
++#define MMC_CAP_ERASE		(1 << 10)	/* Allow erase/trim commands */
+ #define MMC_CAP_3_3V_DDR	(1 << 11)	/* Host supports eMMC DDR 3.3V */
+ #define MMC_CAP_1_8V_DDR	(1 << 12)	/* Host supports eMMC DDR 1.8V */
+ #define MMC_CAP_1_2V_DDR	(1 << 13)	/* Host supports eMMC DDR 1.2V */
