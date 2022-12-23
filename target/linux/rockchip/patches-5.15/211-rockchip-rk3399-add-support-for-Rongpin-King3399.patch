@@ -105,10 +105,10 @@ index 05fc144a4..f7be651a2 100644
  	rb_insert_color(&wl->node, &wakelocks_tree);
  	wakelocks_lru_add(wl);
 
-diff --git a/include/linux/pm_wake.h b/include/linux/pm_wake.h
+diff --git a/include/linux/pm_wakeup.h b/include/linux/pm_wakeup.h
 index 3449e3c56..48b6b74b9 100644
---- a/include/linux/pm_wake.h
-+++ b/include/linux/pm_wake.h
+--- a/include/linux/pm_wakeup.h
++++ b/include/linux/pm_wakeup.h
 @@ -201,7 +201,17 @@ static inline void pm_wakeup_dev_event(struct device *dev, unsigned int msec,
  				       bool hard) {}
  
