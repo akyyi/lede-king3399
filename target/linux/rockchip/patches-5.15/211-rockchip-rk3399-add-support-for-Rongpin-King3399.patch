@@ -87,7 +87,7 @@ index ffbae7335..aa59731d8 100644
  rfkill-y			+= core.o
  rfkill-$(CONFIG_RFKILL_INPUT)	+= input.o
  obj-$(CONFIG_RFKILL_FULL)	+= rfkill.o
-+obj-y				+= rfkill-wlan.o
++obj-y				+= rfkill-wlan.o rfkill-bt.o
  obj-$(CONFIG_RFKILL_GPIO)	+= rfkill-gpio.o
 
 diff --git a/kernel/power/wakelock.c b/kernel/power/wakelock.c
