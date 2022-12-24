@@ -265,12 +265,11 @@ index 0842f9b40..74e23705c 100644
  #define MMC_CAP_3_3V_DDR	(1 << 11)	/* Host supports eMMC DDR 3.3V */
  #define MMC_CAP_1_8V_DDR	(1 << 12)	/* Host supports eMMC DDR 1.8V */
  #define MMC_CAP_1_2V_DDR	(1 << 13)	/* Host supports eMMC DDR 1.2V */
-@@ -387,6 +390,10 @@ struct mmc_host {
+@@ -387,6 +390,9 @@ struct mmc_host {
  #define MMC_CAP2_NO_WRITE_PROTECT (1 << 18)	/* No physical write protect pin, assume that card is always read-write */
  #define MMC_CAP2_NO_SDIO	(1 << 19)	/* Do not send SDIO commands during initialization */
  #define MMC_CAP2_HS400_ES	(1 << 20)	/* Host supports enhanced strobe */
 +
-+	mmc_pm_flag_t		pm_caps;	/* supported pm features */
 +
 +	u32			restrict_caps;  /* Indicate slot specific card type */
  #define MMC_CAP2_NO_SD		(1 << 21)	/* Do not send SD commands during initialization */
