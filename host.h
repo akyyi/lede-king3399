@@ -390,6 +390,10 @@ struct mmc_host {
 #define MMC_CAP2_NO_WRITE_PROTECT (1 << 18)	/* No physical write protect pin, assume that card is always read-write */
 #define MMC_CAP2_NO_SDIO	(1 << 19)	/* Do not send SDIO commands during initialization */
 #define MMC_CAP2_HS400_ES	(1 << 20)	/* Host supports enhanced strobe */
+
+	mmc_pm_flag_t		pm_caps;	/* supported pm features */
+
+	u32			restrict_caps;  /* Indicate slot specific card type */
 #define MMC_CAP2_NO_SD		(1 << 21)	/* Do not send SD commands during initialization */
 #define MMC_CAP2_NO_MMC		(1 << 22)	/* Do not send (e)MMC commands during initialization */
 #define MMC_CAP2_CQE		(1 << 23)	/* Has eMMC command queue engine */
