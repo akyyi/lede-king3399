@@ -157,10 +157,18 @@ index 3449e3c56..1343dde0e 100644
  	return pm_wakeup_ws_event(ws, msec, false);
 
 diff --git a/drivers/mmc/core/host.c b/drivers/mmc/core/host.c
-index 7ea155075..6acd46cc4 100644
+index 7ea155075..960a7e206 100644
 --- a/drivers/mmc/core/host.c
 +++ b/drivers/mmc/core/host.c
-@@ -606,6 +606,7 @@ static int mmc_validate_host_caps(struct mmc_host *host)
+@@ -19,6 +19,7 @@
+ #include <linux/export.h>
+ #include <linux/leds.h>
+ #include <linux/slab.h>
++#include <linux/suspend.h>
+ 
+ #include <linux/mmc/host.h>
+ #include <linux/mmc/card.h>
+@@ -606,6 +607,7 @@ static int mmc_validate_host_caps(struct mmc_host *host)
   *	prepared to start servicing requests before this function
   *	completes.
   */
@@ -168,7 +176,7 @@ index 7ea155075..6acd46cc4 100644
  int mmc_add_host(struct mmc_host *host)
  {
  	int err;
-@@ -625,11 +626,59 @@ int mmc_add_host(struct mmc_host *host)
+@@ -625,11 +627,59 @@ int mmc_add_host(struct mmc_host *host)
  #endif
  
  	mmc_start_host(host);
@@ -249,3 +257,16 @@ index 0842f9b40..7e5e365db 100644
  #define MMC_CAP_3_3V_DDR	(1 << 11)	/* Host supports eMMC DDR 3.3V */
  #define MMC_CAP_1_8V_DDR	(1 << 12)	/* Host supports eMMC DDR 1.8V */
  #define MMC_CAP_1_2V_DDR	(1 << 13)	/* Host supports eMMC DDR 1.2V */
+
+diff --git a/include/linux/mmc/pm.h b/include/linux/mmc/pm.h
+index bc00ccc5c..c4b340d36 100644
+--- a/include/linux/mmc/pm.h
++++ b/include/linux/mmc/pm.h
+@@ -22,6 +22,7 @@
+ typedef unsigned int mmc_pm_flag_t;
+ 
+ #define MMC_PM_KEEP_POWER	(1 << 0)	/* preserve card power during suspend */
++#define MMC_PM_IGNORE_PM_NOTIFY	(1 << 2)	/* ignore mmc pm notify */
+ #define MMC_PM_WAKE_SDIO_IRQ	(1 << 1)	/* wake up host system on SDIO IRQ assertion */
+ 
+ #endif /* LINUX_MMC_PM_H */
