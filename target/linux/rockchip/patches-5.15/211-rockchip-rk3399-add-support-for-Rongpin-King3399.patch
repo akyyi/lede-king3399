@@ -323,8 +323,9 @@ index c92f519d7..77b738f61 100644
 @@ -1414,7 +1414,8 @@ void _mmc_detect_change(struct mmc_host *host, unsigned long delay, bool cd_irq)
  	 * as a system wakeup, but doesn't hurt in other cases.
  	 */
- 	if (cd_irq && !(host->caps & MMC_CAP_NEEDS_POLL))
+-	if (cd_irq && !(host->caps & MMC_CAP_NEEDS_POLL))
 -		__pm_wakeup_event(host->ws, 5000);
++	if (cd_irq && !(host->caps & MMC_CAP_NEEDS_POLL) &&
 +		device_can_wakeup(mmc_dev(host)))
 +		pm_wakeup_event(mmc_dev(host), 5000);
  
