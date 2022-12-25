@@ -1414,7 +1414,8 @@ void _mmc_detect_change(struct mmc_host *host, unsigned long delay, bool cd_irq)
 	 * as a system wakeup, but doesn't hurt in other cases.
 	 */
 	if (cd_irq && !(host->caps & MMC_CAP_NEEDS_POLL))
-		__pm_wakeup_event(host->ws, 5000);
+		device_can_wakeup(mmc_dev(host)))
+		pm_wakeup_event(mmc_dev(host), 5000);
 
 	host->detect_change = 1;
 	mmc_schedule_delayed_work(&host->detect, delay);
