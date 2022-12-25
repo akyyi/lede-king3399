@@ -599,7 +599,7 @@ static int rfkill_rk_probe(struct platform_device *pdev)
     }
 
 	/* read/write proc entries */
-    ent = NULL
+    ent = NULL;
     if (ent == NULL) {
         LOG("Unable to create /proc/%s/lpm entry", PROC_DIR);
         ret = -ENOMEM;
@@ -607,7 +607,7 @@ static int rfkill_rk_probe(struct platform_device *pdev)
     }
 
     /* read/write proc entries */
-    ent = NULL
+    ent = NULL;
     if (ent == NULL) {
         LOG("Unable to create /proc/%s/btwrite entry", PROC_DIR);
         ret = -ENOMEM;
