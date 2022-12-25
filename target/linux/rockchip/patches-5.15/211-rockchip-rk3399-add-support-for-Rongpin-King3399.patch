@@ -249,15 +249,15 @@ index 0842f9b40..74e23705c 100644
  
  	/* The tuning command opcode value is different for SD and eMMC cards */
  	int	(*execute_tuning)(struct mmc_host *host, u32 opcode);
-@@ -302,6 +303,7 @@ struct mmc_host {
+@@ -302,6 +303,6 @@ struct mmc_host {
  	u32			ocr_avail_sdio;	/* SDIO-specific OCR */
  	u32			ocr_avail_sd;	/* SD-specific OCR */
  	u32			ocr_avail_mmc;	/* MMC-specific OCR */
 +	struct notifier_block	pm_notify;
- 	struct wakeup_source	*ws;		/* Enable consume of uevents */
+-	struct wakeup_source	*ws;		/* Enable consume of uevents */
  	u32			max_current_330;
  	u32			max_current_300;
-@@ -337,6 +339,7 @@ struct mmc_host {
+@@ -337,6 +338,7 @@ struct mmc_host {
  #define MMC_CAP_AGGRESSIVE_PM	(1 << 7)	/* Suspend (e)MMC/SD at idle  */
  #define MMC_CAP_NONREMOVABLE	(1 << 8)	/* Nonremovable e.g. eMMC */
  #define MMC_CAP_WAIT_WHILE_BUSY	(1 << 9)	/* Waits while card is busy */
@@ -265,7 +265,7 @@ index 0842f9b40..74e23705c 100644
  #define MMC_CAP_3_3V_DDR	(1 << 11)	/* Host supports eMMC DDR 3.3V */
  #define MMC_CAP_1_8V_DDR	(1 << 12)	/* Host supports eMMC DDR 1.8V */
  #define MMC_CAP_1_2V_DDR	(1 << 13)	/* Host supports eMMC DDR 1.2V */
-@@ -387,6 +390,10 @@ struct mmc_host {
+@@ -387,6 +389,10 @@ struct mmc_host {
  #define MMC_CAP2_NO_WRITE_PROTECT (1 << 18)	/* No physical write protect pin, assume that card is always read-write */
  #define MMC_CAP2_NO_SDIO	(1 << 19)	/* Do not send SDIO commands during initialization */
  #define MMC_CAP2_HS400_ES	(1 << 20)	/* Host supports enhanced strobe */
@@ -315,3 +315,18 @@ index cbf9dc081..f20bbd972 100644
  obj-$(CONFIG_ROCKCHIP_GRF) += grf.o
  obj-$(CONFIG_ROCKCHIP_IODOMAIN) += io-domain.o
  obj-$(CONFIG_ROCKCHIP_PM_DOMAINS) += pm_domains.o
+
+diff --git a/drivers/mmc/core/core.c b/drivers/mmc/core/core.c
+index c92f519d7..77b738f61 100644
+--- a/drivers/mmc/core/core.c
++++ b/drivers/mmc/core/core.c
+@@ -1414,7 +1414,8 @@ void _mmc_detect_change(struct mmc_host *host, unsigned long delay, bool cd_irq)
+ 	 * as a system wakeup, but doesn't hurt in other cases.
+ 	 */
+ 	if (cd_irq && !(host->caps & MMC_CAP_NEEDS_POLL))
+-		__pm_wakeup_event(host->ws, 5000);
++		device_can_wakeup(mmc_dev(host)))
++		pm_wakeup_event(mmc_dev(host), 5000);
+ 
+ 	host->detect_change = 1;
+ 	mmc_schedule_delayed_work(&host->detect, delay);
