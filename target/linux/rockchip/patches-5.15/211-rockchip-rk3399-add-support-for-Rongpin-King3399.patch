@@ -302,3 +302,16 @@ index bc00ccc5c..19b68eb93 100644
 +#define MMC_PM_IGNORE_PM_NOTIFY	(1 << 2)	/* ignore mmc pm notify */
  
  #endif /* LINUX_MMC_PM_H */
+
+diff --git a/drivers/soc/rockchip/Makefile b/drivers/soc/rockchip/Makefile
+index cbf9dc081..f20bbd972 100644
+--- a/drivers/soc/rockchip/Makefile
++++ b/drivers/soc/rockchip/Makefile
+@@ -2,6 +2,7 @@
+ #
+ # Rockchip Soc drivers
+ #
++obj-y += rk_vendor_storage.o
+ obj-$(CONFIG_ROCKCHIP_GRF) += grf.o
+ obj-$(CONFIG_ROCKCHIP_IODOMAIN) += io-domain.o
+ obj-$(CONFIG_ROCKCHIP_PM_DOMAINS) += pm_domains.o
