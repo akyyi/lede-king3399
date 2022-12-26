@@ -393,6 +393,7 @@ struct mmc_host {
 	mmc_pm_flag_t		pm_caps;	/* supported pm features */
 
 	u32			restrict_caps;  /* Indicate slot specific card type */
+#define RESTRICT_CARD_TYPE_SDIO (1 << 1)        /* Can support Secure-Digital I/O Card or Combo-Mem */
 #define MMC_CAP2_NO_SD		(1 << 21)	/* Do not send SD commands during initialization */
 #define MMC_CAP2_NO_MMC		(1 << 22)	/* Do not send (e)MMC commands during initialization */
 #define MMC_CAP2_CQE		(1 << 23)	/* Has eMMC command queue engine */
