@@ -331,3 +331,16 @@ index c92f519d7..77b738f61 100644
  
  	host->detect_change = 1;
  	mmc_schedule_delayed_work(&host->detect, delay);
+
+diff --git a/drivers/mmc/core/host.h b/drivers/mmc/core/host.h
+index 2ff00e4c1..576d16220 100644
+--- a/drivers/mmc/core/host.h
++++ b/drivers/mmc/core/host.h
+@@ -10,6 +10,8 @@
+ 
+ #include <linux/mmc/host.h>
+ 
++#define cls_dev_to_mmc_host(d)	container_of(d, struct mmc_host, class_dev)
++
+ int mmc_register_host_class(void);
+ void mmc_unregister_host_class(void);
