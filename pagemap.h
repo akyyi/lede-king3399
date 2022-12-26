@@ -126,6 +126,10 @@ static inline void mapping_set_gfp_mask(struct address_space *m, gfp_t mask)
 	m->gfp_mask = mask;
 }
 
+#define PAGE_CACHE_SHIFT	PAGE_SHIFT
+#define PAGE_CACHE_SIZE		PAGE_SIZE
+#define PAGE_CACHE_MASK		PAGE_MASK
+
 static inline bool mapping_thp_support(struct address_space *mapping)
 {
 	return test_bit(AS_THP_SUPPORT, &mapping->flags);
