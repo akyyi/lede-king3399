@@ -411,7 +411,7 @@ index cbf9dc081..f20bbd972 100644
  obj-$(CONFIG_ROCKCHIP_PM_DOMAINS) += pm_domains.o
 
 diff --git a/drivers/mmc/core/core.c b/drivers/mmc/core/core.c
-index c92f519d7..77b738f61 100644
+index c92f519d7..9bcae1b3c 100644
 --- a/drivers/mmc/core/core.c
 +++ b/drivers/mmc/core/core.c
 @@ -1414,7 +1414,8 @@ void _mmc_detect_change(struct mmc_host *host, unsigned long delay, bool cd_irq)
@@ -425,6 +425,77 @@ index c92f519d7..77b738f61 100644
  
  	host->detect_change = 1;
  	mmc_schedule_delayed_work(&host->detect, delay);
+@@ -2305,6 +2306,70 @@ void mmc_stop_host(struct mmc_host *host)
+ 	mmc_release_host(host);
+ }
+ 
++#ifdef CONFIG_PM
++
++/* Do the card removal on suspend if card is assumed removeable
++ * Do that in pm notifier while userspace isn't yet frozen, so we will be able
++   to sync the card.
++*/
++int mmc_pm_notify(struct notifier_block *notify_block,
++					unsigned long mode, void *unused)
++{
++	struct mmc_host *host = container_of(
++		notify_block, struct mmc_host, pm_notify);
++	unsigned long flags;
++	int err = 0;
++
++	switch (mode) {
++	case PM_HIBERNATION_PREPARE:
++	case PM_SUSPEND_PREPARE:
++	case PM_RESTORE_PREPARE:
++		spin_lock_irqsave(&host->lock, flags);
++		host->rescan_disable = 1;
++		spin_unlock_irqrestore(&host->lock, flags);
++		cancel_delayed_work_sync(&host->detect);
++
++		if (!host->bus_ops)
++			break;
++
++		/* Validate prerequisites for suspend */
++		if (host->bus_ops->pre_suspend)
++			err = host->bus_ops->pre_suspend(host);
++		if (!err)
++			break;
++
++		if (!mmc_card_is_removable(host)) {
++			dev_warn(mmc_dev(host),
++				 "pre_suspend failed for non-removable host: "
++				 "%d\n", err);
++			/* Avoid removing non-removable hosts */
++			break;
++		}
++
++		/* Calling bus_ops->remove() with a claimed host can deadlock */
++		host->bus_ops->remove(host);
++		mmc_claim_host(host);
++		mmc_detach_bus(host);
++		mmc_power_off(host);
++		mmc_release_host(host);
++		host->pm_flags = 0;
++		break;
++
++	case PM_POST_SUSPEND:
++	case PM_POST_HIBERNATION:
++	case PM_POST_RESTORE:
++
++		spin_lock_irqsave(&host->lock, flags);
++		host->rescan_disable = 0;
++		spin_unlock_irqrestore(&host->lock, flags);
++		_mmc_detect_change(host, 0, false);
++
++	}
++
++	return 0;
++}
++#endif
++
+ static int __init mmc_init(void)
+ {
+ 	int ret;
 
 diff --git a/drivers/mmc/core/host.h b/drivers/mmc/core/host.h
 index 2ff00e4c1..576d16220 100644

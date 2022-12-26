@@ -1413,7 +1413,7 @@ void _mmc_detect_change(struct mmc_host *host, unsigned long delay, bool cd_irq)
 	 * corresponding uevent. This is especially useful, when CD irq is used
 	 * as a system wakeup, but doesn't hurt in other cases.
 	 */
-	if (cd_irq && !(host->caps & MMC_CAP_NEEDS_POLL))
+	if (cd_irq && !(host->caps & MMC_CAP_NEEDS_POLL) &&
 		device_can_wakeup(mmc_dev(host)))
 		pm_wakeup_event(mmc_dev(host), 5000);
 
