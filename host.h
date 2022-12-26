@@ -582,6 +582,8 @@ static inline int mmc_regulator_set_vqmmc(struct mmc_host *mmc,
 
 int mmc_regulator_get_supply(struct mmc_host *mmc);
 
+int mmc_pm_notify(struct notifier_block *notify_block, unsigned long, void *);
+
 static inline int mmc_card_is_removable(struct mmc_host *host)
 {
 	return !(host->caps & MMC_CAP_NONREMOVABLE);
