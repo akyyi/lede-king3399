@@ -548,3 +548,40 @@ index 566f03ec1..eabf8a2fe 100644
  static inline bool mapping_thp_support(struct address_space *mapping)
  {
  	return test_bit(AS_THP_SUPPORT, &mapping->flags);
+
+diff --git a/drivers/clk/clk-devres.c b/drivers/clk/clk-devres.c
+index e5e554bac..fcffc1f21 100644
+--- a/drivers/clk/clk-devres.c
++++ b/drivers/clk/clk-devres.c
+@@ -26,6 +26,31 @@
+  * parent - fixed parent.  No clk_set_parent support
+  */
+ 
++static void devm_clk_release(struct device *dev, void *res)
++{
++	clk_put(*(struct clk **)res);
++}
++
++struct clk *devm_clk_get(struct device *dev, const char *id)
++{
++	struct clk **ptr, *clk;
++
++	ptr = devres_alloc(devm_clk_release, sizeof(*ptr), GFP_KERNEL);
++	if (!ptr)
++		return ERR_PTR(-ENOMEM);
++
++	clk = clk_get(dev, id);
++	if (!IS_ERR(clk)) {
++		*ptr = clk;
++		devres_add(dev, ptr);
++	} else {
++		devres_free(ptr);
++	}
++
++	return clk;
++}
++EXPORT_SYMBOL(devm_clk_get);
++
+ static inline u32 clk_div_readl(struct clk_divider *divider)
+ {
+ 	if (divider->flags & CLK_DIVIDER_BIG_ENDIAN)
