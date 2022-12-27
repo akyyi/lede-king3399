@@ -1133,6 +1133,6 @@
         status = "okay";
 };
 &wireless_wlan {
-	wifi_chip_type = "ap6356s"; 
+	wifi_chip_type = "ap6356"; 
 	status = "okay";
 };
