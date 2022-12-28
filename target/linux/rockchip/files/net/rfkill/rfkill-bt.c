@@ -97,6 +97,8 @@ static const char bt_name[] =
     #endif
 #elif defined(CONFIG_AP6330)
 		"ap6330"
+#elif defined(CONFIG_AP6356)
+		"ap6356"
 #elif defined(CONFIG_AP6476)
 		"ap6476"
 #elif defined(CONFIG_AP6493)
