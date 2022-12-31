@@ -548,3 +548,17 @@ index 566f03ec1..eabf8a2fe 100644
  static inline bool mapping_thp_support(struct address_space *mapping)
  {
  	return test_bit(AS_THP_SUPPORT, &mapping->flags);
+
+diff --git a/drivers/base/devres.c b/drivers/base/devres.c
+index 9d7ad77ed..8cf3955f0 100644
+--- a/drivers/base/devres.c
++++ b/drivers/base/devres.c
+@@ -162,7 +162,7 @@ void *__devres_alloc_node(dr_release_t release, size_t size, gfp_t gfp, int nid,
+ 	dr = alloc_dr(release, size, gfp | __GFP_ZERO, nid);
+ 	if (unlikely(!dr))
+ 		return NULL;
+-	set_node_dbginfo(&dr->node, name, size);
++	//set_node_dbginfo(&dr->node, name, size);
+ 	return dr->data;
+ }
+ EXPORT_SYMBOL_GPL(__devres_alloc_node);
