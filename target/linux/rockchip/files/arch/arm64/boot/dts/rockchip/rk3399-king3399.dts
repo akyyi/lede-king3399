@@ -146,6 +146,7 @@
 		rockchip,grf = <&grf>;
 		pinctrl-names = "default";
 		pinctrl-0 = <&wifi_host_wake_l>;
+		clock-names = "clk_wifi";
 		WIFI,host_wake_l = <&gpio3 RK_PA3 GPIO_ACTIVE_HIGH>;
  		status = "disabled";
 	};
