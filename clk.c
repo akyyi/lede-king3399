@@ -96,12 +96,10 @@ struct clk_core {
 
 struct clk {
 	struct clk_core	*core;
-	struct device *dev;
 	const char *dev_id;
 	const char *con_id;
 	unsigned long min_rate;
 	unsigned long max_rate;
-	unsigned int exclusive_count;
 	struct hlist_node clks_node;
 };
 
