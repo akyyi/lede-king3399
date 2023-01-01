@@ -4338,7 +4338,6 @@ EXPORT_SYMBOL_GPL(devm_clk_hw_get_clk);
 
 void __clk_put(struct clk *clk)
 {
-	unsigned long rate;
 	struct module *owner;
 
 	if (!clk || WARN_ON_ONCE(IS_ERR(clk)))
@@ -4346,14 +4345,22 @@ void __clk_put(struct clk *clk)
 
 	clk_prepare_lock();
 
+	/*
+	 * Before calling clk_put, all calls to clk_rate_exclusive_get() from a
+	 * given user should be balanced with calls to clk_rate_exclusive_put()
+	 * and by that same consumer
+	 */
+	if (WARN_ON(clk->exclusive_count)) {
+		/* We voiced our concern, let's sanitize the situation */
+		clk->core->protect_count -= (clk->exclusive_count - 1);
+		clk_core_rate_unprotect(clk->core);
+		clk->exclusive_count = 0;
+	}
+
 	hlist_del(&clk->clks_node);
-
-	rate = clk->core->req_rate;
-	if (!rate)
-		rate = clk->core->rate;
-
-	if (clk->min_rate > rate || clk->max_rate < rate)
-		clk_core_set_rate_nolock(clk->core, rate);
+	if (clk->min_rate > clk->core->req_rate ||
+	    clk->max_rate < clk->core->req_rate)
+		clk_core_set_rate_nolock(clk->core, clk->core->req_rate);
 
 	owner = clk->core->owner;
 	kref_put(&clk->core->ref, __clk_release);
@@ -4362,9 +4369,8 @@ void __clk_put(struct clk *clk)
 
 	module_put(owner);
 
-	kfree(clk);
+	free_clk(clk);
 }
-
 
 /***        clk rate change notifiers        ***/
 
