@@ -21839,7 +21839,7 @@ dhd_ring_whole_unlock(void *_ring)
 #if (LINUX_VERSION_CODE < KERNEL_VERSION(3, 13, 0))
 #define DHD_VFS_UNLINK(dir, b, c) vfs_unlink(DHD_VFS_INODE(dir), b)
 #else
-#define DHD_VFS_UNLINK(dir, b, c) vfs_unlink(DHD_VFS_INODE(dir), b, c)
+#define DHD_VFS_UNLINK(dir, b, c) vfs_unlink(NULL,DHD_VFS_INODE(dir), b, c)
 #endif /* LINUX_VERSION_CODE < KERNEL_VERSION(3, 13, 0) */
 int
 dhd_file_delete(char *path)
