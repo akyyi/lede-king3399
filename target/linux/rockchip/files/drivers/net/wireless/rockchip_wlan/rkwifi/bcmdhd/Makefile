@@ -88,7 +88,7 @@ else
 	DHDCFLAGS += -DSDIO_ISR_THREAD
 endif
 DHDOFILES += bcmsdh.o bcmsdh_linux.o bcmsdh_sdmmc.o bcmsdh_sdmmc_linux.o  \
-	dhd_sdio.o dhd_cdc.o dhd_wlfc.o
+	dhd_sdio.o dhd_cdc.o dhd_wlfc.o -fPIC
 endif
 
 #BCMDHD_PCIE
