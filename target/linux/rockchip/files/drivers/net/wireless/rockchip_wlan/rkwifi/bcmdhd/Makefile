@@ -20,7 +20,7 @@ CONFIG_BCMDHD_AUTO_SELECT := y
 CONFIG_MACH_PLATFORM := y
 #CONFIG_BCMDHD_DTS := y
 
-DHDCFLAGS = -Wall -Wstrict-prototypes -Dlinux -DBCMDRIVER  -fPIC                 \
+DHDCFLAGS = -Wall -Wstrict-prototypes -Dlinux -DBCMDRIVER                 \
 	-DBCMDONGLEHOST -DBCMDMA32 -DBCMFILEIMAGE                             \
 	-DDHDTHREAD -DDHD_DEBUG -DSHOW_EVENTS -DBCMDBG -DGET_OTP_MAC_ENABLE   \
 	-DWIFI_ACT_FRAME -DARP_OFFLOAD_SUPPORT -DSUPPORT_PM2_ONLY             \
@@ -87,6 +87,7 @@ endif
 else
 	DHDCFLAGS += -DSDIO_ISR_THREAD
 endif
+DHDCFLAGS += -fPIC
 DHDOFILES += bcmsdh.o bcmsdh_linux.o bcmsdh_sdmmc.o bcmsdh_sdmmc_linux.o  \
 	dhd_sdio.o dhd_cdc.o dhd_wlfc.o
 endif
