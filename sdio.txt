@@ -640,6 +640,14 @@ static int mmc_sdio_pre_init(struct mmc_host *host, u32 ocr,
  * In the case of a resume, "oldcard" will contain the card
  * we're trying to reinitialise.
  */
+static void mmc_sdio_resend_if_cond(struct mmc_host *host,
+				    struct mmc_card *card)
+{
+	sdio_reset(host);
+	mmc_go_idle(host);
+	mmc_send_if_cond(host, host->ocr_avail);
+	mmc_remove_card(card);
+}
 static int mmc_sdio_init_cardp(struct mmc_host *host, u32 ocr,
 			      struct mmc_card *oldcard, int powered_resume)
 {
@@ -725,8 +733,7 @@ try_again:
 	 * to make sure which speed mode should work.
 	 */
 	if (!powered_resume && (rocr & ocr & R4_18V_PRESENT)) {
-		err = mmc_set_signal_voltage(host, MMC_SIGNAL_VOLTAGE_180,
-					ocr_card);
+		err = mmc_set_signal_voltage(host, MMC_SIGNAL_VOLTAGE_180);
 		if (err == -EAGAIN) {
 			mmc_sdio_resend_if_cond(host, card);
 			retries--;
@@ -757,7 +764,7 @@ try_again:
 	 * Read CSD, before selecting the card
 	 */
 	if (!oldcard && card->type == MMC_TYPE_SD_COMBO) {
-		err = mmc_sd_get_csd(host, card);
+		err = mmc_sd_get_csd(card);
 		if (err)
 			return err;
 
