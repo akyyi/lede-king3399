@@ -949,7 +949,7 @@
 &sdio0 {
 	bus-width = <4>;
 	supports-sdio;
-	cap-mmc-highspeed;
+	cap-sd-highspeed;
 	cap-sdio-irq;
 	clock-frequency = <50000000>;
 	disable-wp;
