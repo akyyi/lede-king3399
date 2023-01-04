@@ -232,7 +232,7 @@ static bool dhd_inet6addr_notifier_registered = FALSE;
 
 //#if defined(CONFIG_PM_SLEEP)
 #include <linux/suspend.h>
-volatile bool dhd_mmc_suspend0 = FALSE;
+volatile bool dhd_mmc_suspend = FALSE;
 DECLARE_WAIT_QUEUE_HEAD(dhd_dpc_wait);
 //#endif /* defined(CONFIG_PM_SLEEP) */
 
@@ -899,7 +899,7 @@ static int dhd_pm_callback(struct notifier_block *nfb, unsigned long action, voi
 
 #if (LINUX_VERSION_CODE >= KERNEL_VERSION(2, 6, 27)) && (LINUX_VERSION_CODE <= \
         KERNEL_VERSION(2, 6, 39))
-	dhd_mmc_suspend0 = suspend;
+	dhd_mmc_suspend = suspend;
 	smp_mb();
 #endif
 
