@@ -77,7 +77,7 @@ PBCMSDH_SDMMC_INSTANCE gInstance;
 /* Maximum number of bcmsdh_sdmmc devices supported by driver */
 #define BCMSDH_SDMMC_MAX_DEVICES 1
 
-extern volatile bool dhd_mmc_suspend0;
+//extern volatile bool dhd_mmc_suspend0;
 
 static int sdioh_probe(struct sdio_func *func)
 {
