@@ -77,7 +77,7 @@ PBCMSDH_SDMMC_INSTANCE gInstance;
 /* Maximum number of bcmsdh_sdmmc devices supported by driver */
 #define BCMSDH_SDMMC_MAX_DEVICES 1
 
-//extern volatile bool dhd_mmc_suspend0;
+extern bool dhd_mmc_suspend0;
 
 static int sdioh_probe(struct sdio_func *func)
 {
@@ -219,19 +219,19 @@ static int bcmsdh_sdmmc_suspend(struct device *pdev)
 	if (func->num != 2)
 		return 0;
 
-	dhd_mmc_suspend0 = TRUE;
+	dhd_mmc_suspend = TRUE;
 	sdioh = sdio_get_drvdata(func);
 	err = bcmsdh_suspend(sdioh->bcmsdh);
 	if (err) {
 		printf("%s bcmsdh_suspend err=%d\n", __FUNCTION__, err);
-		dhd_mmc_suspend0 = FALSE;
+		dhd_mmc_suspend = FALSE;
 		return err;
 	}
 
 	sdio_flags = sdio_get_host_pm_caps(func);
 	if (!(sdio_flags & MMC_PM_KEEP_POWER)) {
 		sd_err(("%s: can't keep power while host is suspended\n", __FUNCTION__));
-		dhd_mmc_suspend0 = FALSE;
+		dhd_mmc_suspend = FALSE;
 		return  -EINVAL;
 	}
 
@@ -239,7 +239,7 @@ static int bcmsdh_sdmmc_suspend(struct device *pdev)
 	err = sdio_set_host_pm_flags(func, MMC_PM_KEEP_POWER);
 	if (err) {
 		sd_err(("%s: error while trying to keep power\n", __FUNCTION__));
-		dhd_mmc_suspend0 = FALSE;
+		dhd_mmc_suspend = FALSE;
 		return err;
 	}
 	smp_mb();
@@ -257,7 +257,7 @@ static int bcmsdh_sdmmc_resume(struct device *pdev)
 	if (func->num != 2)
 		return 0;
 
-	dhd_mmc_suspend0 = FALSE;
+	dhd_mmc_suspend = FALSE;
 	sdioh = sdio_get_drvdata(func);
 	bcmsdh_resume(sdioh->bcmsdh);
 
